@@ -17,7 +17,7 @@ import copy
 
 from sklearn.impute import KNNImputer
 
-# hyperparameter tuning for missing value imputation
+# hyperparameter tuning for missing value imputation --cross validation?
 
 def KNN_impute(re_train_data):
     """Impute missing data using KNN.
@@ -171,3 +171,21 @@ def IsolationForest_outlier(im_train_data):
 
 # PCA
 # TSNE // generally better
+
+if __name__ == '__main__':
+    """
+        Using the iris dataset from scikit learn.
+        Exporting npremoved_train_data, nporginal_train_data, nptrain_data_labels, nptest_data_labels and print to see if they are the same.
+    """
+
+    with open('create_test_data.npy', 'rb') as f:
+        npremoved_train_data = np.load(f)
+        nporiginal_train_data = np.load(f)
+        nptrain_data_labels = np.load(f)
+        nptest_data = np.load(f)
+        nptest_data_labels = np.load(f)
+    print(npremoved_train_data)
+    print(nporiginal_train_data)
+    print(nptrain_data_labels)
+    print(nptest_data)
+    print(nptest_data_labels)
