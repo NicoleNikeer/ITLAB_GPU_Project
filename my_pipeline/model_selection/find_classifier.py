@@ -17,22 +17,29 @@ Authors:
 
 # get the target labels
 
+import numpy as np
 from sklearn import svm
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import GridSearchCV
-import numpy as np
 
 from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import make_classification
+from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import train_test_split
+
+
 
 def SVC_classifier(preprocessed_train_data, train_data_labels):
-    """Detect outlier using IsolationForest.
+    """Train SVC classifier using given dataset and specific parameters.
 
     Args:
-        
+        preprocessed_train_data (np array): preprocessed train data.
+        train_data_labels (np array): train data labels.
 
     Returns:
-        
+        (sklearn.pipeline.Pipeline): object/classifier after using SVC with specific parameters.
 
     """
     # using the SVC classifier
@@ -41,13 +48,14 @@ def SVC_classifier(preprocessed_train_data, train_data_labels):
     return clf.fit(preprocessed_train_data, train_data_labels)
 
 def SVC_classifier_GridSearchCV(preprocessed_train_data, train_data_labels):
-    """Detect outlier using IsolationForest.
+    """Train SVC classifier using given dataset and select best model with optimal parameters.
 
     Args:
-        
+        preprocessed_train_data (np array): preprocessed train data.
+        train_data_labels (np array): train data labels.
 
     Returns:
-        
+        (dictionary): dictionary object contians information relate to different parameter combinations.
 
     """
     # setting search range for parameters
@@ -60,17 +68,16 @@ def SVC_classifier_GridSearchCV(preprocessed_train_data, train_data_labels):
     return clf.fit(preprocessed_train_data, train_data_labels).cv_results_
 
 
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.datasets import make_classification
 
 def RandomForest_classifier(preprocessed_train_data, train_data_labels):
-    """Detect outlier using IsolationForest.
+    """Train RandomForest classifier using given dataset and select best model with optimal parameters.
 
     Args:
-        
+        preprocessed_train_data (np array): preprocessed train data.
+        train_data_labels (np array): train data labels.
 
     Returns:
-        
+        (sklearn.pipeline.Pipeline): object/classifier after using RandomForest with specific parameters.
 
     """
     # using the RandomForest classifier
@@ -79,17 +86,18 @@ def RandomForest_classifier(preprocessed_train_data, train_data_labels):
     return clf.fit(preprocessed_train_data, train_data_labels)
 
 def RandomForest_classifier_GridSearchCV(preprocessed_train_data, train_data_labels):
-    """Detect outlier using IsolationForest.
+    """Train RandomForest classifier using given dataset and select best model with optimal parameters.
 
     Args:
-        
+        preprocessed_train_data (np array): preprocessed train data.
+        train_data_labels (np array): train data labels.
 
     Returns:
-        
+        (dictionary): dictionary object contians information relate to different parameter combinations.
 
     """
     # setting search range for parameters
-    parameters = {'n_estimators':list(range(30, 71, 5)), 
+    parameters = {'n_estimators':list(range(30, 71, 5)),
                   'criterion':('gini', 'entropy', 'log_loss'),
                   'max_depth':[2, 4, 8, 16, 32, 64]}
     rfc = RandomForestClassifier()
@@ -98,17 +106,16 @@ def RandomForest_classifier_GridSearchCV(preprocessed_train_data, train_data_lab
     return clf.fit(preprocessed_train_data, train_data_labels).cv_results_
 
 
-from sklearn.neural_network import MLPClassifier
-from sklearn.model_selection import train_test_split
 
 def MLP_classifier(preprocessed_train_data, train_data_labels):
-    """Detect outlier using IsolationForest.
+    """Train MLP classifier using given dataset and select best model with optimal parameters.
 
     Args:
-        
+        preprocessed_train_data (np array): preprocessed train data.
+        train_data_labels (np array): train data labels.
 
     Returns:
-        
+        (sklearn.pipeline.Pipeline): object/classifier after using MLP with specific parameters.
 
     """
     # using the MLP classifier
@@ -117,19 +124,23 @@ def MLP_classifier(preprocessed_train_data, train_data_labels):
     return clf.fit(preprocessed_train_data, train_data_labels)
 
 def MLP_classifier_GridSearchCV(preprocessed_train_data, train_data_labels):
-    """Detect outlier using IsolationForest.
+    """Train MLP classifier using given dataset and select best model with optimal parameters.
 
     Args:
-        
+        preprocessed_train_data (np array): preprocessed train data.
+        train_data_labels (np array): train data labels.
 
     Returns:
-        
+        (dictionary): dictionary object contians information relate to different parameter combinations.
 
     """
     # setting search range for parameters
-    parameters = {'kernel':('linear', 'rbf'), 'C':[1, 10]}
-    svc = svm.SVC()
-    clf = GridSearchCV(svc, parameters)
+    parameters = { #'max_iter':[10, 50, 100, 150, 200] # another hyper parameter could be used for grid search (repetitive)
+                  'hidden_layer_sizes':[(5), (5,5), (5,5,5), (5,5,5,5), (5,5,5,5,5), (10), 
+                                        (10,10), (10,10,10), (10,10,10,10), (10,10,10,10,10)]} # 5,10; < 20neurons, <5 layers
+    # tn f1 ... ... - get 4 accuracy scores (change format of grid search output)
+    rfc = MLPClassifier()
+    clf = GridSearchCV(rfc, parameters)
     # return the selected parameters for this estimator
     return clf.fit(preprocessed_train_data, train_data_labels).cv_results_
 

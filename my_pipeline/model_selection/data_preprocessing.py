@@ -5,28 +5,39 @@ Authors:
 
 """
 
+import copy
+import sys
+import warnings
+import numpy as np
+import sklearn.neighbors._base
+
+from sklearn.impute import KNNImputer
+from missingpy import MissForest
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import LocalOutlierFactor
+from sklearn.ensemble import IsolationForest
+
+sys.modules['sklearn.neighbors.base'] = sklearn.neighbors._base # noqa
+
+
+
 """Missing value imputation methods.
 
 1. KNN
 2. missForest
 
 """
-
-import numpy as np
-import copy
-
-from sklearn.impute import KNNImputer
-
 # hyperparameter tuning for missing value imputation --cross validation?
 
 def KNN_impute(re_train_data):
     """Impute missing data using KNN.
 
     Args:
-        re_train_data (list of lists): train data with random removal.
+        re_train_data (np array): train data with random removal.
 
     Returns:
-        im_train_data (list of lists): imputed train data.
+        im_train_data (np array): imputed train data.
 
     """
     X = copy.deepcopy(re_train_data)
@@ -44,21 +55,14 @@ def KNN_impute(re_train_data):
     return im_train_data
 
 
-import sys
-import warnings
-
-import sklearn.neighbors._base
-sys.modules['sklearn.neighbors.base'] = sklearn.neighbors._base # noqa
-from missingpy import MissForest
-
 def MissForest_impute(re_train_data):
     """Impute missing data using MissForest.
 
     Args:
-        re_train_data (list of lists): train data with random removal.
+        re_train_data (np array): train data with random removal.
 
     Returns:
-        im_train_data (list of lists): imputed train data.
+        im_train_data (np array): imputed train data.
 
     """
     X = copy.deepcopy(re_train_data)
@@ -86,16 +90,14 @@ def MissForest_impute(re_train_data):
 
 """
 
-from sklearn.preprocessing import MinMaxScaler
-
 def MinMax_scale(im_train_data):
     """Scale data using MinMax.
 
     Args:
-        im_train_data (list of lists): imputed train data.
+        im_train_data (np array): imputed train data.
 
     Returns:
-        sc_train_data (list of lists): scaled train data.
+        sc_train_data (np array): scaled train data.
 
     """
     scaler = MinMaxScaler()
@@ -105,16 +107,14 @@ def MinMax_scale(im_train_data):
     return sc_train_data
 
 
-from sklearn.preprocessing import StandardScaler
-
 def Standardize_scale(im_train_data):
     """Scale data using Standardization.
 
     Args:
-        im_train_data (list of lists): imputed train data.
+        im_train_data (np array): imputed train data.
 
     Returns:
-        sc_train_data (list of lists): scaled train data.
+        sc_train_data (np array): scaled train data.
 
     """
     scaler = StandardScaler()
@@ -132,13 +132,11 @@ def Standardize_scale(im_train_data):
 
 """
 
-from sklearn.neighbors import LocalOutlierFactor
-
 def LOF_outlier(im_train_data):
     """Detect outlier using LOF.
 
     Args:
-        im_train_data (list of lists): imputed train data.
+        im_train_data (np array): imputed train data.
 
     Returns:
         (list): indices of detected outliers.
@@ -151,13 +149,11 @@ def LOF_outlier(im_train_data):
     return [i for i, x in enumerate(is_outlier) if x != 1]
 
 
-from sklearn.ensemble import IsolationForest
-
 def IsolationForest_outlier(im_train_data):
     """Detect outlier using IsolationForest.
 
     Args:
-        im_train_data (list of lists): imputed train data.
+        im_train_data (np array): imputed train data.
 
     Returns:
         (list): indices of detected outliers.

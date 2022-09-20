@@ -17,8 +17,9 @@ digits = datasets.load_digits()
 import random
 import copy
 import numpy as np
+import pandas as pd
 
-def train_test_split(dataset):
+def my_train_test_split(dataset):
     """Split a given test data to 80% train and 20% test.
 
     Args:
@@ -43,7 +44,7 @@ def train_test_split(dataset):
     return train_data, train_data_labels, test_data, test_data_labels
 
 
-def random_remove(train_data):
+def my_random_remove(train_data):
     """Randomly remove data in train data.
 
     Args:
@@ -113,4 +114,11 @@ if __name__ == '__main__':
     #     a = np.load(f)
     # print(a)
 
-# store as a csv file?
+# store the train data & train label in a csv file
+    i = 0
+    a = np.zeros(shape=(120,5))
+    for a_row in npremoved_train_data:
+        a[i] = np.append(npremoved_train_data[i], nptrain_data_labels[i])
+        i += 1
+    DF = pd.DataFrame(a)
+    DF.to_csv("iris_data.csv")
