@@ -30,7 +30,7 @@ def my_train_test_split(dataset):
 
     """
     total_rows = len(dataset.data)
-    num_separation_row = int(0.8*total_rows)
+    num_separation_row = int(1*total_rows)
     # randomly select 80% of data to be test data
     num_test_data = set(random.sample(range(len(dataset.data)), num_separation_row))
 
@@ -85,8 +85,8 @@ if __name__ == '__main__':
     from sklearn import datasets
     iris = datasets.load_iris()
 
-    train_data, train_data_labels, test_data, test_data_labels = train_test_split(iris)
-    original_train_data, removed_train_data = random_remove(train_data)
+    train_data, train_data_labels, test_data, test_data_labels = my_train_test_split(iris)
+    original_train_data, removed_train_data = my_random_remove(train_data)
 
     npremoved_train_data = np.array(removed_train_data)
     nporiginal_train_data = np.array(original_train_data)
@@ -116,9 +116,9 @@ if __name__ == '__main__':
 
 # store the train data & train label in a csv file
     i = 0
-    a = np.zeros(shape=(120,5))
+    a = np.zeros(shape=(150,5))
     for a_row in npremoved_train_data:
         a[i] = np.append(npremoved_train_data[i], nptrain_data_labels[i])
         i += 1
     DF = pd.DataFrame(a)
-    DF.to_csv("iris_data.csv")
+    DF.to_csv("iris_data_ori.csv")
