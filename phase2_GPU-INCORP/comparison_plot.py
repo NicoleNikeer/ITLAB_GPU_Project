@@ -148,7 +148,7 @@ def run_boosting(num_rounds, CPU_time_list, GPU_time_list, ratio_time_list, X, y
     GPU_time_list[num_rounds].append(cuml_time_ba)
     ratio_time_list[num_rounds].append(ratio_ba)
 
-def plot_fiture(current_graph_name, sample_or_feature, directory_to_store, CPU_time_list, GPU_time_list, ratio_time_list):
+def plot_fiture(current_graph_name, sample_or_feature, directory_to_store, x_axis, CPU_time_list, GPU_time_list, ratio_time_list):
     # *** function parameters *** #
     # current_graph_name - indicate which learning model is used
     # sample_or_feature - mainly changing sample or feature
@@ -221,12 +221,12 @@ if __name__ == '__main__':
     # initial number of features
     num_features = 50
 
-    # five rounds, increase feature numbers (50, 100, 150, 200, 250)
+    # five rounds, increase feature numbers (50, 100, 150, 200, 250, 300)
     for f_index in range(5):
         sample_numbers = 0 # reinitialize sample size
         num_features = 50 * (f_index + 1) # incrase feature number
         
-        while sample_numbers < 5001:
+        while sample_numbers < 5000:
             sample_numbers += 500 # update sample size
             print("(change sample size: ", sample_numbers, num_features,")") # print  indication for rounds
             X, y  = datasets.make_classification(n_samples=sample_numbers, n_features = num_features) # generate sample data
@@ -250,13 +250,13 @@ if __name__ == '__main__':
 
     # *** generate plots for changing sample size *** #
     # plot svc
-    plot_fiture("svc", "Sample", "./update_sample/", svc_average_time_sklearn_all, svc_average_time_cuml_all, svc_ratio_between_all)
+    plot_fiture("svc", "Sample", "./update_sample/", x_axis, svc_average_time_sklearn_all, svc_average_time_cuml_all, svc_ratio_between_all)
     # plot rf
-    plot_fiture("rf", "Sample", "./update_sample/", rf_average_time_sklearn_all, rf_average_time_cuml_all, rf_ratio_between_all)
+    plot_fiture("rf", "Sample", "./update_sample/", x_axis, rf_average_time_sklearn_all, rf_average_time_cuml_all, rf_ratio_between_all)
     # plot nb
-    plot_fiture("nb", "Sample", "./update_sample/", nb_average_time_sklearn_all, nb_average_time_cuml_all, nb_ratio_between_all)
+    plot_fiture("nb", "Sample", "./update_sample/", x_axis, nb_average_time_sklearn_all, nb_average_time_cuml_all, nb_ratio_between_all)
     # plot ba
-    plot_fiture("ba", "Sample", "./update_sample/", ba_average_time_cpu_all, ba_average_time_gpu_all, ba_ratio_between_all)
+    plot_fiture("ba", "Sample", "./update_sample/", x_axis, ba_average_time_cpu_all, ba_average_time_gpu_all, ba_ratio_between_all)
 
     ### Saving results ###
     final_result["change_sample_size"] = {}
@@ -283,12 +283,12 @@ if __name__ == '__main__':
     # initial number of samples
     num_samples = 50
 
-    # five rounds, increase sample numbers (50, 100, 150, 200, 250)
+    # five rounds, increase sample numbers (50, 100, 150, 200, 250, 300)
     for f_index in range(5):
         feature_numbers = 0 # reinitialize feature size
         num_samples = 50 * (f_index + 1) # incrase sample number
 
-        while feature_numbers < 5001:
+        while feature_numbers < 5000:
             feature_numbers += 500 # update feature size
             print("(change feature size: ", num_samples, feature_numbers,")")# print  indication for rounds
             X, y  = datasets.make_classification(n_samples=num_samples, n_features=feature_numbers) # generate sample data
@@ -312,13 +312,13 @@ if __name__ == '__main__':
 
     # *** generate plots for changing sample size *** #
     # plot svc
-    plot_fiture("svc", "Feature", "./update_feature/", svc_average_time_sklearn_all, svc_average_time_cuml_all, svc_ratio_between_all)
+    plot_fiture("svc", "Feature", "./update_feature/", x_axis, svc_average_time_sklearn_all, svc_average_time_cuml_all, svc_ratio_between_all)
     # plot rf
-    plot_fiture("rf", "Feature", "./update_feature/", rf_average_time_sklearn_all, rf_average_time_cuml_all, rf_ratio_between_all)
+    plot_fiture("rf", "Feature", "./update_feature/", x_axis, rf_average_time_sklearn_all, rf_average_time_cuml_all, rf_ratio_between_all)
     # plot nb
-    plot_fiture("nb", "Feature", "./update_feature/", nb_average_time_sklearn_all, nb_average_time_cuml_all, nb_ratio_between_all)
+    plot_fiture("nb", "Feature", "./update_feature/", x_axis, nb_average_time_sklearn_all, nb_average_time_cuml_all, nb_ratio_between_all)
     # plot ba
-    plot_fiture("ba", "Feature", "./update_feature/", ba_average_time_cpu_all, ba_average_time_gpu_all, ba_ratio_between_all)
+    plot_fiture("ba", "Feature", "./update_feature/", x_axis, ba_average_time_cpu_all, ba_average_time_gpu_all, ba_ratio_between_all)
 
     ### Saving results ###
     final_result["change_feature_size"] = {}
