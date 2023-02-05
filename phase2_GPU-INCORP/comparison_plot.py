@@ -157,18 +157,21 @@ def plot_fiture(current_graph_name, sample_or_feature, directory_to_store, x_axi
     # GPU_time_list - the list to store the GPU runtime
     # ratio_time_list - the list to store the runtime ratio between CPU/GPU
     # *** ------------------- *** #
+    # cpu and gpu runtime plot
     figure(figsize=(10, 10), dpi=80)
 
-    plt.plot(x_axis, CPU_time_list[0], label="CPU 50 features", color="#F39C12", linestyle="--")
-    plt.plot(x_axis, GPU_time_list[0], label="GPU 50 features", color="#F39C12")
-    plt.plot(x_axis, CPU_time_list[1], label="CPU 100 features", color="#27AE60", linestyle="--")
-    plt.plot(x_axis, GPU_time_list[1], label="GPU 100 features", color="#27AE60")
-    plt.plot(x_axis, CPU_time_list[2], label="CPU 150 features", color="#2980B9", linestyle="--")
-    plt.plot(x_axis, GPU_time_list[2], label="GPU 150 features", color="#2980B9")
-    plt.plot(x_axis, CPU_time_list[3], label="CPU 200 features", color="#8E44AD", linestyle="--")
-    plt.plot(x_axis, GPU_time_list[3], label="GPU 200 features", color="#8E44AD")
-    plt.plot(x_axis, CPU_time_list[4], label="CPU 250 features", color="#C0392B", linestyle="--")
-    plt.plot(x_axis, GPU_time_list[4], label="GPU 250 features", color="#C0392B")
+    color_array = ["#F39C12", "#27AE60", "#2980B9", "#8E44AD", "#C0392B"] # array for color codinng
+    s_or_f = "" # string for reverse name (between sample and feature)
+
+    # plot multiple lines
+    for i in range(1):
+        num = 50 * (i+1)
+        if sample_or_feature == "Sample": # find the reverse name (between sample and feature)
+            s_or_f = "features"
+        else:
+            s_or_f = "samples"
+        plt.plot(x_axis, CPU_time_list[i], label="CPU " + num + " " + s_or_f, color=color_array[i], linestyle="--")
+        plt.plot(x_axis, GPU_time_list[i], label="GPU " + num + " " + s_or_f, color=color_array[i])
     plt.legend(loc='upper right')
     if current_graph_name == "ba":
         plt.title("MSAP (CPU) classifier: Adaboost vs. (GPU) classifier: LightGBM")
@@ -179,13 +182,12 @@ def plot_fiture(current_graph_name, sample_or_feature, directory_to_store, x_axi
     plt.savefig(directory_to_store + current_graph_name + '_compare_' + sample_or_feature +'_plot.png')
     plt.cla()
 
+    # cpu/gpu ratio plot
     figure(figsize=(10, 10), dpi=80)
 
-    plt.plot(x_axis, ratio_time_list[0], label="50 features", color="#F39C12")
-    plt.plot(x_axis, ratio_time_list[1], label="100 features", color="#27AE60")
-    plt.plot(x_axis, ratio_time_list[2], label="150 features", color="#2980B9")
-    plt.plot(x_axis, ratio_time_list[3], label="200 features", color="#8E44AD")
-    plt.plot(x_axis, ratio_time_list[4], label="250 features", color="#C0392B")
+    for i in range(1):
+        num = 50 * (i+1)
+        plt.plot(x_axis, ratio_time_list[i], label="50 features", color=color_array[i])
     plt.legend(loc='upper right')
     if current_graph_name == "ba":
         plt.title("MSAP (CPU) classifier: Adaboost vs. (GPU) classifier: LightGBM")
@@ -222,7 +224,7 @@ if __name__ == '__main__':
     num_features = 50
 
     # five rounds, increase feature numbers (50, 100, 150, 200, 250, 300)
-    for f_index in range(5):
+    for f_index in range(1):
         sample_numbers = 0 # reinitialize sample size
         num_features = 50 * (f_index + 1) # incrase feature number
         
@@ -284,7 +286,7 @@ if __name__ == '__main__':
     num_samples = 50
 
     # five rounds, increase sample numbers (50, 100, 150, 200, 250, 300)
-    for f_index in range(5):
+    for f_index in range(1):
         feature_numbers = 0 # reinitialize feature size
         num_samples = 50 * (f_index + 1) # incrase sample number
 
