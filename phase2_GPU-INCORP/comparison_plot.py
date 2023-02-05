@@ -221,7 +221,7 @@ if __name__ == '__main__':
     # initial number of features
     num_features = 50
 
-    # five rounds, increase feature numbers (50, 100, 150, 200, 250, 300)
+    # five rounds, increase feature numbers (50, 100, 150, 200, 250)
     for f_index in range(5):
         sample_numbers = 0 # reinitialize sample size
         num_features = 50 * (f_index + 1) # incrase feature number
@@ -283,7 +283,7 @@ if __name__ == '__main__':
     # initial number of samples
     num_samples = 50
 
-    # five rounds, increase sample numbers (50, 100, 150, 200, 250, 300)
+    # five rounds, increase sample numbers (50, 100, 150, 200, 250)
     for f_index in range(5):
         feature_numbers = 0 # reinitialize feature size
         num_samples = 50 * (f_index + 1) # incrase sample number
