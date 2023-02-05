@@ -99,7 +99,7 @@ def run_rf(num_rounds, size_number, CPU_time_list, GPU_time_list, ratio_time_lis
     # do Grid Search for rf
     cpu_parameters = {'criterion': ('gini', 'entropy', 'log_loss'),
                   'max_depth': [2, 4, 8], 'max_features': ('sqrt', 'log2')}
-    gpu_parameters = {'split_criterion': [0, 1, 2],
+    gpu_parameters = {'split_criterion': ('gini', 'entropy', 'poisson'),
                   'max_depth': [2, 4, 8], 'max_features': ('sqrt', 'log2')}
     # all parameters combinations:
     all_combination_cpu_parameters = list(itertools.product(*cpu_parameters.values()))
