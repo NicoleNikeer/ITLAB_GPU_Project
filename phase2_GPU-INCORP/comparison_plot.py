@@ -97,7 +97,7 @@ def run_rf(num_rounds, size_number, CPU_time_list, GPU_time_list, ratio_time_lis
     # y - the label for classification prediction
     # *** ------------------- *** #
     # do Grid Search for rf
-    cpu_parameters = {'criterion': ('gini', 'entropy', 'log_loss'),
+    cpu_parameters = {'criterion': ('gini', 'entropy'),
                   'max_depth': [2, 4, 8], 'max_features': ('sqrt', 'log2')}
     gpu_parameters = {'split_criterion': ('gini', 'entropy'), # only 0/'gini' and 1/'entropy' valid for classification
                   'max_depth': [2, 4, 8], 'max_features': ('sqrt', 'log2')}
