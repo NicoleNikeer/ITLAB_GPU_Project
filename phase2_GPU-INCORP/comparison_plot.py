@@ -344,7 +344,7 @@ if __name__ == '__main__':
             run_svc(f_index, sample_numbers, s_svc_average_time_sklearn_all, s_svc_average_time_cuml_all, s_svc_ratio_between_all, X, y)
             # for random forest
             run_rf(f_index, sample_numbers, s_rf_average_time_sklearn_all, s_rf_average_time_cuml_all, s_rf_ratio_between_all, X, y)
-            for nb
+            # for nb
             run_nb(f_index, sample_numbers, s_nb_average_time_sklearn_all, s_nb_average_time_cuml_all, s_nb_ratio_between_all, X, y)
             # for boosting
             run_boosting(f_index, sample_numbers, s_ba_average_time_cpu_all, s_ba_average_time_gpu_all, s_ba_ratio_between_all, X, y)
