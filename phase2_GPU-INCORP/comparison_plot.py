@@ -170,6 +170,7 @@ def plot_fiture(current_graph_name, sample_or_feature, directory_to_store, x_axi
             s_or_f = "features"
         else:
             s_or_f = "samples"
+        num = str(num)
         plt.plot(x_axis, CPU_time_list[i], label="CPU " + num + " " + s_or_f, color=color_array[i], linestyle="--")
         plt.plot(x_axis, GPU_time_list[i], label="GPU " + num + " " + s_or_f, color=color_array[i])
     plt.legend(loc='upper right')
@@ -187,6 +188,7 @@ def plot_fiture(current_graph_name, sample_or_feature, directory_to_store, x_axi
 
     for i in range(1):
         num = 50 * (i+1)
+        num = str(num)
         plt.plot(x_axis, ratio_time_list[i], label="50 features", color=color_array[i])
     plt.legend(loc='upper right')
     if current_graph_name == "ba":
