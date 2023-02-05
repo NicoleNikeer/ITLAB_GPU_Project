@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=${GPU-INCORP_KN}
+#SBATCH --job-name=GPU-INCORP_KN
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=knni@ucdavis.edu
 #SBATCH --output=/home/knni/git/phase2_GPU-INCORP/scripts/logs/%j.out
