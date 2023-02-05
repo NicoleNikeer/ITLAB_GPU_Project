@@ -347,113 +347,113 @@ if __name__ == '__main__':
             X = X.astype(np.float32)
             y = y.astype(np.float32)
 
-            # # *** train different learning model and record runtime *** #
-            # # for svc
-            # run_svc(f_index, sample_numbers, s_svc_average_time_sklearn_all, s_svc_average_time_cuml_all, s_svc_ratio_between_all, X, y)
+            # *** train different learning model and record runtime *** #
+            # for svc
+            run_svc(f_index, sample_numbers, s_svc_average_time_sklearn_all, s_svc_average_time_cuml_all, s_svc_ratio_between_all, X, y)
             # for random forest
             run_rf(f_index, sample_numbers, s_rf_average_time_sklearn_all, s_rf_average_time_cuml_all, s_rf_ratio_between_all, X, y)
-            # # for nb
-            # run_nb(f_index, sample_numbers, s_nb_average_time_sklearn_all, s_nb_average_time_cuml_all, s_nb_ratio_between_all, X, y)
-            # # for boosting
-            # run_boosting(f_index, sample_numbers, s_ba_average_time_cpu_all, s_ba_average_time_gpu_all, s_ba_ratio_between_all, X, y)
+            # for nb
+            run_nb(f_index, sample_numbers, s_nb_average_time_sklearn_all, s_nb_average_time_cuml_all, s_nb_ratio_between_all, X, y)
+            # for boosting
+            run_boosting(f_index, sample_numbers, s_ba_average_time_cpu_all, s_ba_average_time_gpu_all, s_ba_ratio_between_all, X, y)
 
     # define x-axis for plotting
     x_axis = [ i for i in range(500, max_size+1, 500)]
 
     # *** generate plots for changing sample size *** #
-    # # plot svc
-    # plot_fiture(repeat_time, max_size, "svc", "Sample", "./update_sample/", x_axis, s_svc_average_time_sklearn_all, s_svc_average_time_cuml_all, s_svc_ratio_between_all)
+    # plot svc
+    plot_fiture(repeat_time, max_size, "svc", "Sample", "./update_sample/", x_axis, s_svc_average_time_sklearn_all, s_svc_average_time_cuml_all, s_svc_ratio_between_all)
     # plot rf
     plot_fiture(repeat_time, max_size, "rf", "Sample", "./update_sample/", x_axis, s_rf_average_time_sklearn_all, s_rf_average_time_cuml_all, s_rf_ratio_between_all)
-    # # plot nb
-    # plot_fiture(repeat_time, max_size, "nb", "Sample", "./update_sample/", x_axis, s_nb_average_time_sklearn_all, s_nb_average_time_cuml_all, s_nb_ratio_between_all)
-    # # plot ba
-    # plot_fiture(repeat_time, max_size, "ba", "Sample", "./update_sample/", x_axis, s_ba_average_time_cpu_all, s_ba_average_time_gpu_all, s_ba_ratio_between_all)
+    # plot nb
+    plot_fiture(repeat_time, max_size, "nb", "Sample", "./update_sample/", x_axis, s_nb_average_time_sklearn_all, s_nb_average_time_cuml_all, s_nb_ratio_between_all)
+    # plot ba
+    plot_fiture(repeat_time, max_size, "ba", "Sample", "./update_sample/", x_axis, s_ba_average_time_cpu_all, s_ba_average_time_gpu_all, s_ba_ratio_between_all)
 
-    # ### Saving results ###
-    # final_result["change_sample_size"] = {}
-    # final_result["change_sample_size"]["svc"] = [copy.deepcopy(s_svc_average_time_sklearn_all), copy.deepcopy(s_svc_average_time_cuml_all), copy.deepcopy(s_svc_ratio_between_all)]
-    # final_result["change_sample_size"]["rf"] = [copy.deepcopy(s_rf_average_time_sklearn_all), copy.deepcopy(s_rf_average_time_cuml_all), copy.deepcopy(s_rf_ratio_between_all)]
-    # final_result["change_sample_size"]["nb"] = [copy.deepcopy(s_nb_average_time_sklearn_all), copy.deepcopy(s_nb_average_time_cuml_all), copy.deepcopy(s_nb_ratio_between_all)]
-    # final_result["change_sample_size"]["ba"] = [copy.deepcopy(s_ba_average_time_cpu_all), copy.deepcopy(s_ba_average_time_gpu_all), copy.deepcopy(s_ba_ratio_between_all)]
+    ### Saving results ###
+    final_result["change_sample_size"] = {}
+    final_result["change_sample_size"]["svc"] = [copy.deepcopy(s_svc_average_time_sklearn_all), copy.deepcopy(s_svc_average_time_cuml_all), copy.deepcopy(s_svc_ratio_between_all)]
+    final_result["change_sample_size"]["rf"] = [copy.deepcopy(s_rf_average_time_sklearn_all), copy.deepcopy(s_rf_average_time_cuml_all), copy.deepcopy(s_rf_ratio_between_all)]
+    final_result["change_sample_size"]["nb"] = [copy.deepcopy(s_nb_average_time_sklearn_all), copy.deepcopy(s_nb_average_time_cuml_all), copy.deepcopy(s_nb_ratio_between_all)]
+    final_result["change_sample_size"]["ba"] = [copy.deepcopy(s_ba_average_time_cpu_all), copy.deepcopy(s_ba_average_time_gpu_all), copy.deepcopy(s_ba_ratio_between_all)]
 
 
-    # #----------------------------change feature size----------------------------#
-    # # declare lists to store CPU and GPU runtimes
-    # f_svc_average_time_sklearn_all = {}
-    # f_svc_average_time_cuml_all = {}
-    # f_svc_ratio_between_all = {}
-    # f_rf_average_time_sklearn_all = {}
-    # f_rf_average_time_cuml_all = {}
-    # f_rf_ratio_between_all = {}
-    # f_nb_average_time_sklearn_all = [[], [], [], [], []]
-    # f_nb_average_time_cuml_all = [[], [], [], [], []]
-    # f_nb_ratio_between_all = [[], [], [], [], []]
-    # f_ba_average_time_cpu_all = {}
-    # f_ba_average_time_gpu_all = {}
-    # f_ba_ratio_between_all = {}
-    # num_samples = 50 # initial number of samples
+    #----------------------------change feature size----------------------------#
+    # declare lists to store CPU and GPU runtimes
+    f_svc_average_time_sklearn_all = {}
+    f_svc_average_time_cuml_all = {}
+    f_svc_ratio_between_all = {}
+    f_rf_average_time_sklearn_all = {}
+    f_rf_average_time_cuml_all = {}
+    f_rf_ratio_between_all = {}
+    f_nb_average_time_sklearn_all = [[], [], [], [], []]
+    f_nb_average_time_cuml_all = [[], [], [], [], []]
+    f_nb_ratio_between_all = [[], [], [], [], []]
+    f_ba_average_time_cpu_all = {}
+    f_ba_average_time_gpu_all = {}
+    f_ba_ratio_between_all = {}
+    num_samples = 50 # initial number of samples
 
-    # # five rounds, increase sample numbers (50, 100, 150, 200, 250, 300)
-    # for f_index in range(repeat_time):
-    #     feature_numbers = 0 # reinitialize feature size
-    #     num_samples = 50 * (f_index + 1) # incrase sample number
+    # five rounds, increase sample numbers (50, 100, 150, 200, 250, 300)
+    for f_index in range(repeat_time):
+        feature_numbers = 0 # reinitialize feature size
+        num_samples = 50 * (f_index + 1) # incrase sample number
 
-    #     while feature_numbers < max_size:
-    #         feature_numbers += 500 # update feature size
-    #         print("(change feature size: ", num_samples, feature_numbers,")")# print  indication for rounds
-    #         X, y  = datasets.make_classification(n_samples=num_samples, n_features=feature_numbers) # generate sample data
+        while feature_numbers < max_size:
+            feature_numbers += 500 # update feature size
+            print("(change feature size: ", num_samples, feature_numbers,")")# print  indication for rounds
+            X, y  = datasets.make_classification(n_samples=num_samples, n_features=feature_numbers) # generate sample data
 
-    #         # some cuML models require the input to be np.float32
-    #         X = X.astype(np.float32)
-    #         y = y.astype(np.float32)
+            # some cuML models require the input to be np.float32
+            X = X.astype(np.float32)
+            y = y.astype(np.float32)
 
-    #         # *** train different learning model and record runtime *** #
-    #         # for svc
-    #         run_svc(f_index, feature_numbers, f_svc_average_time_sklearn_all, f_svc_average_time_cuml_all, f_svc_ratio_between_all, X, y)
-    #         # for random forest
-    #         run_rf(f_index, feature_numbers, f_rf_average_time_sklearn_all, f_rf_average_time_cuml_all, f_rf_ratio_between_all, X, y)
-    #         # for nb
-    #         run_nb(f_index, feature_numbers, f_nb_average_time_sklearn_all, f_nb_average_time_cuml_all, f_nb_ratio_between_all, X, y)
-    #         # for boosting
-    #         run_boosting(f_index, feature_numbers, f_ba_average_time_cpu_all, f_ba_average_time_gpu_all, f_ba_ratio_between_all, X, y)
+            # *** train different learning model and record runtime *** #
+            # for svc
+            run_svc(f_index, feature_numbers, f_svc_average_time_sklearn_all, f_svc_average_time_cuml_all, f_svc_ratio_between_all, X, y)
+            # for random forest
+            run_rf(f_index, feature_numbers, f_rf_average_time_sklearn_all, f_rf_average_time_cuml_all, f_rf_ratio_between_all, X, y)
+            # for nb
+            run_nb(f_index, feature_numbers, f_nb_average_time_sklearn_all, f_nb_average_time_cuml_all, f_nb_ratio_between_all, X, y)
+            # for boosting
+            run_boosting(f_index, feature_numbers, f_ba_average_time_cpu_all, f_ba_average_time_gpu_all, f_ba_ratio_between_all, X, y)
     
-    # # define x-axis for plotting
-    # # this is already defined before
+    # define x-axis for plotting
+    # this is already defined before
 
-    # # *** generate plots for changing sample size *** #
-    # # plot svc
-    # plot_fiture(repeat_time, max_size, "svc", "Feature", "./update_feature/", x_axis, f_svc_average_time_sklearn_all, f_svc_average_time_cuml_all, f_svc_ratio_between_all)
-    # # plot rf
-    # plot_fiture(repeat_time, max_size, "rf", "Feature", "./update_feature/", x_axis, f_rf_average_time_sklearn_all, f_rf_average_time_cuml_all, f_rf_ratio_between_all)
-    # # plot nb
-    # plot_fiture(repeat_time, max_size, "nb", "Feature", "./update_feature/", x_axis, f_nb_average_time_sklearn_all, f_nb_average_time_cuml_all, f_nb_ratio_between_all)
-    # # plot ba
-    # plot_fiture(repeat_time, max_size, "ba", "Feature", "./update_feature/", x_axis, f_ba_average_time_cpu_all, f_ba_average_time_gpu_all, f_ba_ratio_between_all)
+    # *** generate plots for changing sample size *** #
+    # plot svc
+    plot_fiture(repeat_time, max_size, "svc", "Feature", "./update_feature/", x_axis, f_svc_average_time_sklearn_all, f_svc_average_time_cuml_all, f_svc_ratio_between_all)
+    # plot rf
+    plot_fiture(repeat_time, max_size, "rf", "Feature", "./update_feature/", x_axis, f_rf_average_time_sklearn_all, f_rf_average_time_cuml_all, f_rf_ratio_between_all)
+    # plot nb
+    plot_fiture(repeat_time, max_size, "nb", "Feature", "./update_feature/", x_axis, f_nb_average_time_sklearn_all, f_nb_average_time_cuml_all, f_nb_ratio_between_all)
+    # plot ba
+    plot_fiture(repeat_time, max_size, "ba", "Feature", "./update_feature/", x_axis, f_ba_average_time_cpu_all, f_ba_average_time_gpu_all, f_ba_ratio_between_all)
 
-    # ### Saving results ###
-    # final_result["change_feature_size"] = {}
-    # final_result["change_feature_size"]["svc"] = [copy.deepcopy(f_svc_average_time_sklearn_all), copy.deepcopy(f_svc_average_time_cuml_all), copy.deepcopy(f_svc_ratio_between_all)]
-    # final_result["change_feature_size"]["rf"] = [copy.deepcopy(f_rf_average_time_sklearn_all), copy.deepcopy(f_rf_average_time_cuml_all), copy.deepcopy(f_rf_ratio_between_all)]
-    # final_result["change_feature_size"]["nb"] = [copy.deepcopy(f_nb_average_time_sklearn_all), copy.deepcopy(f_nb_average_time_cuml_all), copy.deepcopy(f_nb_ratio_between_all)]
-    # final_result["change_feature_size"]["ba"] = [copy.deepcopy(f_ba_average_time_cpu_all), copy.deepcopy(f_ba_average_time_gpu_all), copy.deepcopy(f_ba_ratio_between_all)]
+    ### Saving results ###
+    final_result["change_feature_size"] = {}
+    final_result["change_feature_size"]["svc"] = [copy.deepcopy(f_svc_average_time_sklearn_all), copy.deepcopy(f_svc_average_time_cuml_all), copy.deepcopy(f_svc_ratio_between_all)]
+    final_result["change_feature_size"]["rf"] = [copy.deepcopy(f_rf_average_time_sklearn_all), copy.deepcopy(f_rf_average_time_cuml_all), copy.deepcopy(f_rf_ratio_between_all)]
+    final_result["change_feature_size"]["nb"] = [copy.deepcopy(f_nb_average_time_sklearn_all), copy.deepcopy(f_nb_average_time_cuml_all), copy.deepcopy(f_nb_ratio_between_all)]
+    final_result["change_feature_size"]["ba"] = [copy.deepcopy(f_ba_average_time_cpu_all), copy.deepcopy(f_ba_average_time_gpu_all), copy.deepcopy(f_ba_ratio_between_all)]
 
 
-    # # dump output to a pickle file
-    # with open('./outputs/comparison_plot_results.pickle', 'wb') as handle:
-    #     pickle.dump(final_result, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    # #---------pickle file access instructions---------#
-    # # import pickle
+    # dump output to a pickle file
+    with open('./outputs/comparison_plot_results.pickle', 'wb') as handle:
+        pickle.dump(final_result, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    #---------pickle file access instructions---------#
+    # import pickle
 
-    # # your_data = {'foo': 'bar'}
+    # your_data = {'foo': 'bar'}
 
-    # # # Store data (serialize)
-    # # with open('filename.pickle', 'wb') as handle:
-    # #     pickle.dump(your_data, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    # # Store data (serialize)
+    # with open('filename.pickle', 'wb') as handle:
+    #     pickle.dump(your_data, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-    # # # Load data (deserialize)
-    # # with open('filename.pickle', 'rb') as handle:
-    # #     unserialized_data = pickle.load(handle)
+    # # Load data (deserialize)
+    # with open('filename.pickle', 'rb') as handle:
+    #     unserialized_data = pickle.load(handle)
 
-    # # print(your_data == unserialized_data)
-    # #---------pickle file access instructions---------#
+    # print(your_data == unserialized_data)
+    #---------pickle file access instructions---------#
