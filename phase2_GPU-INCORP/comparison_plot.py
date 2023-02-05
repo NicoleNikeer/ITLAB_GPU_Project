@@ -97,26 +97,33 @@ def run_rf(num_rounds, size_number, CPU_time_list, GPU_time_list, ratio_time_lis
     # y - the label for classification prediction
     # *** ------------------- *** #
     # do Grid Search for rf
-    parameters = {'criterion': ('gini', 'entropy', 'log_loss'),
+    cpu_parameters = {'criterion': ('gini', 'entropy', 'log_loss'),
+                  'max_depth': [2, 4, 8], 'max_features': ('sqrt', 'log2')}
+    gpu_parameters = {'split_criterion': ('gini', 'entropy', 'mse'),
                   'max_depth': [2, 4, 8], 'max_features': ('sqrt', 'log2')}
     # all parameters combinations:
-    all_combination_parameters = itertools.product(*parameters.values())
+    all_combination_cpu_parameters = list(itertools.product(*cpu_parameters.values()))
+    all_combination_gpu_parameters = list(itertools.product(*gpu_parameters.values()))
 
-    for a_combination_parameter in all_combination_parameters:
+    for i in range(len(all_combination_cpu_parameters)):
         # for random forest
-        cur_criterion = a_combination_parameter[0]
-        cur_max_depth = a_combination_parameter[1]
-        cur_max_features = a_combination_parameter[2]
-        clf_rf = RandomForestClassifier(criterion=cur_criterion, max_depth=cur_max_depth, max_features=cur_max_features)
+        cpu_cur_criterion = all_combination_cpu_parameters[i][0]
+        cpu_cur_max_depth = all_combination_cpu_parameters[i][1]
+        cpu_cur_max_features = all_combination_cpu_parameters[i][2]
+        clf_rf = RandomForestClassifier(criterion=cpu_cur_criterion, max_depth=cpu_cur_max_depth, max_features=cpu_cur_max_features)
         sklearn_time_rf = timeit.timeit(lambda: train_data(clf_rf, X, y), number=5)
 
-        clf_rf = RandomForestClassifier_gpu(criterion=cur_criterion, max_depth=cur_max_depth, max_features=cur_max_features)
+        gpu_cur_criterion = all_combination_gpu_parameters[i][0]
+        gpu_cur_max_depth = all_combination_gpu_parameters[i][1]
+        gpu_cur_max_features = all_combination_gpu_parameters[i][2]
+        clf_rf = RandomForestClassifier_gpu(split_criterion=gpu_cur_criterion, max_depth=gpu_cur_max_depth, max_features=gpu_cur_max_features)
         cuml_time_rf = timeit.timeit(lambda: train_data(clf_rf, X, y), number=5)
 
         ratio_rf = sklearn_time_rf/cuml_time_rf
 
-        print("Current parameters - criterion: " + cur_criterion + " max_depth: " + str(cur_max_depth) + " max_features: " + cur_max_features)
+        print("Current cpu parameters - criterion: " + cpu_cur_criterion + " max_depth: " + str(cpu_cur_max_depth) + " max_features: " + cpu_cur_max_features)
         print(f"""(rf) Average time of sklearn's {clf_rf.__class__.__name__}""", sklearn_time_rf, 's')
+        print("Current gpu parameters - split_criterion: " + gpu_cur_criterion + " max_depth: " + str(gpu_cur_max_depth) + " max_features: " + gpu_cur_max_features)
         print(f"""(rf) Average time of cuml's {clf_rf.__class__.__name__}""", cuml_time_rf, 's')
         print('(rf) Ratio between sklearn and cuml is', ratio_rf)
 
@@ -125,14 +132,14 @@ def run_rf(num_rounds, size_number, CPU_time_list, GPU_time_list, ratio_time_lis
             CPU_time_list[num_rounds] = {}
             GPU_time_list[num_rounds] = {}
             ratio_time_list[num_rounds] = {}
-            CPU_time_list[num_rounds][(size_number, (cur_criterion, cur_max_depth, cur_max_features))] = (sklearn_time_rf)
-            GPU_time_list[num_rounds][(size_number, (cur_criterion, cur_max_depth, cur_max_features))] = (cuml_time_rf)
-            ratio_time_list[num_rounds][(size_number, (cur_criterion, cur_max_depth, cur_max_features))] = (ratio_rf)
+            CPU_time_list[num_rounds][(size_number, (cpu_cur_criterion, cpu_cur_max_depth, cpu_cur_max_features))] = (sklearn_time_rf)
+            GPU_time_list[num_rounds][(size_number, (cpu_cur_criterion, cpu_cur_max_depth, cpu_cur_max_features))] = (cuml_time_rf)
+            ratio_time_list[num_rounds][(size_number, (cpu_cur_criterion, cpu_cur_max_depth, cpu_cur_max_features))] = (ratio_rf)
         else:
             # append to an existing list
-            CPU_time_list[num_rounds][(size_number, (cur_criterion, cur_max_depth, cur_max_features))] = (sklearn_time_rf)
-            GPU_time_list[num_rounds][(size_number, (cur_criterion, cur_max_depth, cur_max_features))] = (cuml_time_rf)
-            ratio_time_list[num_rounds][(size_number, (cur_criterion, cur_max_depth, cur_max_features))] = (ratio_rf)
+            CPU_time_list[num_rounds][(size_number, (gpu_cur_criterion, gpu_cur_max_depth, gpu_cur_max_features))] = (sklearn_time_rf)
+            GPU_time_list[num_rounds][(size_number, (gpu_cur_criterion, gpu_cur_max_depth, gpu_cur_max_features))] = (cuml_time_rf)
+            ratio_time_list[num_rounds][(size_number, (gpu_cur_criterion, gpu_cur_max_depth, gpu_cur_max_features))] = (ratio_rf)
 
 def run_nb(num_rounds, size_number, CPU_time_list, GPU_time_list, ratio_time_list, X, y):
     # *** function parameters *** #
