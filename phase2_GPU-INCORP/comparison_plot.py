@@ -99,7 +99,7 @@ def run_rf(num_rounds, size_number, CPU_time_list, GPU_time_list, ratio_time_lis
     # do Grid Search for rf
     cpu_parameters = {'criterion': ('gini', 'entropy', 'log_loss'),
                   'max_depth': [2, 4, 8], 'max_features': ('sqrt', 'log2')}
-    gpu_parameters = {'split_criterion': ('gini', 'entropy', 'mse'),
+    gpu_parameters = {'split_criterion': [0, 1, 2],
                   'max_depth': [2, 4, 8], 'max_features': ('sqrt', 'log2')}
     # all parameters combinations:
     all_combination_cpu_parameters = list(itertools.product(*cpu_parameters.values()))
@@ -123,7 +123,7 @@ def run_rf(num_rounds, size_number, CPU_time_list, GPU_time_list, ratio_time_lis
 
         print("Current cpu parameters - criterion: " + cpu_cur_criterion + " max_depth: " + str(cpu_cur_max_depth) + " max_features: " + cpu_cur_max_features)
         print(f"""(rf) Average time of sklearn's {clf_rf.__class__.__name__}""", sklearn_time_rf, 's')
-        print("Current gpu parameters - split_criterion: " + gpu_cur_criterion + " max_depth: " + str(gpu_cur_max_depth) + " max_features: " + gpu_cur_max_features)
+        print("Current gpu parameters - split_criterion: " + str(gpu_cur_criterion) + " max_depth: " + str(gpu_cur_max_depth) + " max_features: " + gpu_cur_max_features)
         print(f"""(rf) Average time of cuml's {clf_rf.__class__.__name__}""", cuml_time_rf, 's')
         print('(rf) Ratio between sklearn and cuml is', ratio_rf)
 
