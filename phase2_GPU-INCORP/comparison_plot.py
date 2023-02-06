@@ -328,9 +328,9 @@ if __name__ == '__main__':
     s_ba_average_time_gpu_all = {}
     s_ba_ratio_between_all = {}
     # total repeat time while increase sample/feature size
-    repeat_time = 2
+    repeat_time = 5
     # maximum size for sample/feature
-    max_size = 1000
+    max_size = 5000
     num_features = 50 # initial number of features
 
     # five rounds, increase feature numbers (50, 100, 150, 200, 250, 300)
