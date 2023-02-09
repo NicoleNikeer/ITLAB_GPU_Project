@@ -224,7 +224,7 @@ def run_boosting(num_rounds, size_number, CPU_time_list, GPU_time_list, ratio_ti
             GPU_time_list[num_rounds][(size_number, (cur_n_estimators, cur_learning_rate))] = (cuml_time_ba)
             ratio_time_list[num_rounds][(size_number, (cur_n_estimators, cur_learning_rate))] = (ratio_ba)
 
-def plot_fiture(repeat_time, max_size, current_graph_name, sample_or_feature, directory_to_store, x_axis, CPU_time_list, GPU_time_list, ratio_time_list):
+def plot_figure(repeat_time, max_size, current_graph_name, sample_or_feature, directory_to_store, x_axis, CPU_time_list, GPU_time_list, ratio_time_list):
     # *** function parameters *** #
     # current_graph_name - indicate which learning model is used
     # sample_or_feature - mainly changing sample or feature
