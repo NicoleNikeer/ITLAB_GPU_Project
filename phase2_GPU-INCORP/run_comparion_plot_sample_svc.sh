@@ -13,7 +13,4 @@
 #SBATCH --mem=8G
 #SBATCH --time=30:00:00
 
-python run_plot_sample_ba.py
-python run_plot_sample_nb.py
-python run_plot_feature_ba.py
-python run_plot_feature_nb.py
+python run_plot_sample_svc.py
