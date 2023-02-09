@@ -11,6 +11,6 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --gres gpu:1
 #SBATCH --mem=8G
-#SBATCH --time=10:00:00
+#SBATCH --time=30:00:00
 
 python -i comparison_plot.py
