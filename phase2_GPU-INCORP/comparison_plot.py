@@ -224,7 +224,7 @@ def run_boosting(num_rounds, size_number, CPU_time_list, GPU_time_list, ratio_ti
             GPU_time_list[num_rounds][(size_number, (cur_n_estimators, cur_learning_rate))] = (cuml_time_ba)
             ratio_time_list[num_rounds][(size_number, (cur_n_estimators, cur_learning_rate))] = (ratio_ba)
 
-def plot_fiture(repeat_time, max_size, current_graph_name, sample_or_feature, directory_to_store, x_axis, CPU_time_list, GPU_time_list, ratio_time_list):
+def plot_figure(repeat_time, max_size, current_graph_name, sample_or_feature, directory_to_store, x_axis, CPU_time_list, GPU_time_list, ratio_time_list):
     # *** function parameters *** #
     # current_graph_name - indicate which learning model is used
     # sample_or_feature - mainly changing sample or feature
@@ -362,13 +362,13 @@ if __name__ == '__main__':
 
     # *** generate plots for changing sample size *** #
     # plot svc
-    plot_fiture(repeat_time, max_size, "svc", "Sample", "./update_sample/", x_axis, s_svc_average_time_sklearn_all, s_svc_average_time_cuml_all, s_svc_ratio_between_all)
+    plot_figure(repeat_time, max_size, "svc", "Sample", "./update_sample/", x_axis, s_svc_average_time_sklearn_all, s_svc_average_time_cuml_all, s_svc_ratio_between_all)
     # plot rf
-    plot_fiture(repeat_time, max_size, "rf", "Sample", "./update_sample/", x_axis, s_rf_average_time_sklearn_all, s_rf_average_time_cuml_all, s_rf_ratio_between_all)
+    plot_figure(repeat_time, max_size, "rf", "Sample", "./update_sample/", x_axis, s_rf_average_time_sklearn_all, s_rf_average_time_cuml_all, s_rf_ratio_between_all)
     # plot nb
-    plot_fiture(repeat_time, max_size, "nb", "Sample", "./update_sample/", x_axis, s_nb_average_time_sklearn_all, s_nb_average_time_cuml_all, s_nb_ratio_between_all)
+    plot_figure(repeat_time, max_size, "nb", "Sample", "./update_sample/", x_axis, s_nb_average_time_sklearn_all, s_nb_average_time_cuml_all, s_nb_ratio_between_all)
     # plot ba
-    plot_fiture(repeat_time, max_size, "ba", "Sample", "./update_sample/", x_axis, s_ba_average_time_cpu_all, s_ba_average_time_gpu_all, s_ba_ratio_between_all)
+    plot_figure(repeat_time, max_size, "ba", "Sample", "./update_sample/", x_axis, s_ba_average_time_cpu_all, s_ba_average_time_gpu_all, s_ba_ratio_between_all)
 
     ### Saving results ###
     final_result["change_sample_size"] = {}
@@ -423,13 +423,13 @@ if __name__ == '__main__':
 
     # *** generate plots for changing sample size *** #
     # plot svc
-    plot_fiture(repeat_time, max_size, "svc", "Feature", "./update_feature/", x_axis, f_svc_average_time_sklearn_all, f_svc_average_time_cuml_all, f_svc_ratio_between_all)
+    plot_figure(repeat_time, max_size, "svc", "Feature", "./update_feature/", x_axis, f_svc_average_time_sklearn_all, f_svc_average_time_cuml_all, f_svc_ratio_between_all)
     # plot rf
-    plot_fiture(repeat_time, max_size, "rf", "Feature", "./update_feature/", x_axis, f_rf_average_time_sklearn_all, f_rf_average_time_cuml_all, f_rf_ratio_between_all)
+    plot_figure(repeat_time, max_size, "rf", "Feature", "./update_feature/", x_axis, f_rf_average_time_sklearn_all, f_rf_average_time_cuml_all, f_rf_ratio_between_all)
     # plot nb
-    plot_fiture(repeat_time, max_size, "nb", "Feature", "./update_feature/", x_axis, f_nb_average_time_sklearn_all, f_nb_average_time_cuml_all, f_nb_ratio_between_all)
+    plot_figure(repeat_time, max_size, "nb", "Feature", "./update_feature/", x_axis, f_nb_average_time_sklearn_all, f_nb_average_time_cuml_all, f_nb_ratio_between_all)
     # plot ba
-    plot_fiture(repeat_time, max_size, "ba", "Feature", "./update_feature/", x_axis, f_ba_average_time_cpu_all, f_ba_average_time_gpu_all, f_ba_ratio_between_all)
+    plot_figure(repeat_time, max_size, "ba", "Feature", "./update_feature/", x_axis, f_ba_average_time_cpu_all, f_ba_average_time_gpu_all, f_ba_ratio_between_all)
 
     ### Saving results ###
     final_result["change_feature_size"] = {}
